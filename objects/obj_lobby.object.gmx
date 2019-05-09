@@ -91,7 +91,7 @@ draw_text(room_width/2,15,'Lobby');
 
 // Draw VS
 var vsY = 300;
-SetText(fontHeading1,c_white,fa_center,fa_middle);
+SetText(fontHeading1,c_ltgray,fa_center,fa_middle);
 draw_text(room_width/2,vsY,'VS');
 
 // Draw player names
@@ -100,13 +100,21 @@ draw_text(room_width/2-70,vsY,'PLAYER NAME HERE');
 draw_set_halign(fa_left);
 draw_text(room_width/2+70,vsY,'PLAYER NAME HERE');
 
+// Draw host
+SetText(font0,c_aqua,fa_right,fa_middle);
+draw_text(room_width/2-70,vsY-45,'Host');
+
 // Draw settings box
 hMargin = 450;
 draw_set_color(c_white);
 draw_roundrect(hMargin,470,room_width-hMargin,470+400,1)
-// Draw best of Setting
 
 // Draw gamemode Setting
+
+// Draw best of Setting
+SetText(font0,c_aqua,fa_right,fa_middle);
+draw_text(room_width/2-70,vsY-45,'First to:');
+
 
 
 </string>

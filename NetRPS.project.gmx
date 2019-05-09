@@ -9,6 +9,8 @@
     <sprite>sprites\spr_RPS</sprite>
     <sprite>sprites\spr_RPS2</sprite>
     <sprite>sprites\spr_flipped</sprite>
+    <sprite>sprites\spr_title</sprite>
+    <sprite>sprites\spr_sunburst</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
