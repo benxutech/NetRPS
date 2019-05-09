@@ -59,6 +59,9 @@ ready.height = 100;
     room_goto(rm_menu);
     back.trigger = 0;
 }
+if (ready.trigger) {
+    room_goto(rm_game);
+}
 </string>
           </argument>
         </arguments>
@@ -100,7 +103,7 @@ draw_text(room_width/2+70,vsY,'PLAYER NAME HERE');
 // Draw settings box
 hMargin = 450;
 draw_set_color(c_white);
-draw_rectangle(hMargin,420,room_width-hMargin,420+400,1)
+draw_roundrect(hMargin,470,room_width-hMargin,470+400,1)
 // Draw best of Setting
 
 // Draw gamemode Setting

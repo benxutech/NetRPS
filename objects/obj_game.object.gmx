@@ -58,7 +58,7 @@
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -76,11 +76,21 @@
           <argument>
             <kind>1</kind>
             <string>
-// Draw left name
-
-// Draw right name
-
 // Draw score
+var scY = 15+30;
+SetText(fontHeading1,c_white,fa_center,fa_top);
+draw_text(room_width/2,scY,'3 : 2');
+
+// Draw first to
+SetText(fontSmall,c_white,fa_center,fa_top);
+draw_text(room_width/2,scY+85,'First to : X');
+
+// Draw player names
+SetText(fontHeading2,c_white,fa_left,fa_top);
+draw_text(15,scY,'PLAYER NAME HERE');
+draw_set_halign(fa_right);
+draw_text(room_width-15,scY,'PLAYER2 NAME HERE');
+
 
 
 </string>

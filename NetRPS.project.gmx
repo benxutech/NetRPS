@@ -6,9 +6,9 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\sprScissor</sprite>
-    <sprite>sprites\sprRock</sprite>
-    <sprite>sprites\sprPaper</sprite>
+    <sprite>sprites\spr_RPS</sprite>
+    <sprite>sprites\spr_RPS2</sprite>
+    <sprite>sprites\spr_flipped</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -25,9 +25,11 @@
     <scripts name="ui">
       <script>scripts\SetText.gml</script>
     </scripts>
+    <script>scripts\script4.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\font0</font>
+    <font>fonts\fontSmall</font>
     <font>fonts\fontHeading1</font>
     <font>fonts\fontHeading2</font>
   </fonts>

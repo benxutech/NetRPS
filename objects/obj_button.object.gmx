@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>trigger = 0;
 clicked = 0;
-width = 200;
+width = 300;
 height = 74;
 label = '';
 </string>
@@ -113,12 +113,16 @@ label = '';
           <argument>
             <kind>1</kind>
             <string>// Backing
+draw_set_color(c_gray);
+draw_roundrect(x-width/2,y-height/2+3,x+width/2+3,y+height/2+6,0);
 draw_set_color(c_white);
-draw_rectangle(x-width/2,y-height/2,x+width/2,y+height/2,0);
+draw_roundrect(x-width/2,y-height/2,x+width/2,y+height/2,0);
 
+/* use double backing
 // Outline
 draw_set_color(c_black);
-draw_rectangle(x-width/2,y-height/2,x+width/2,y+height/2,1);
+draw_roundrect(x-width/2,y-height/2,x+width/2,y+height/2,1);
+*/
 
 // Label
 SetText(font0,c_black,fa_center,fa_middle);
@@ -126,10 +130,10 @@ draw_text(x,y,label);
 
 // Clicked
 if (clicked) {
-draw_set_color(c_black);
-draw_set_alpha(0.5);
-draw_rectangle(x-width/2,y-height/2,x+width/2,y+height/2,0);
-draw_set_alpha(1);
+    draw_set_color(c_black);
+    draw_set_alpha(0.5);
+    draw_roundrect(x-width/2,y-height/2,x+width/2,y+height/2,0);
+    draw_set_alpha(1);
 }
 
 </string>
