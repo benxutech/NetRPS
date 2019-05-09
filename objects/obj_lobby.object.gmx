@@ -56,11 +56,11 @@ ready.height = 100;
             <string>if (back.trigger) {
     if (instance_exists(global.server)) instance_destroy(global.server);
     if (instance_exists(global.client)) instance_destroy(global.client);
-    room_goto(rm_menu);
+    TransitionRoom(rm_menu);
     back.trigger = 0;
 }
 if (ready.trigger) {
-    room_goto(rm_game);
+    TransitionRoom(rm_game);
 }
 </string>
           </argument>
@@ -96,9 +96,9 @@ draw_text(room_width/2,vsY,'VS');
 
 // Draw player names
 SetText(fontHeading2,c_white,fa_right,fa_middle);
-draw_text(room_width/2-70,vsY,'PLAYER NAME HERE');
+draw_text(room_width/2-90,vsY,'PLAYER NAME HERE');
 draw_set_halign(fa_left);
-draw_text(room_width/2+70,vsY,'PLAYER NAME HERE');
+draw_text(room_width/2+90,vsY,'PLAYER NAME HERE');
 
 // Draw host
 SetText(font0,c_aqua,fa_right,fa_middle);
@@ -106,16 +106,16 @@ draw_text(room_width/2-70,vsY-45,'Host');
 
 // Draw settings box
 hMargin = 450;
+setY = 470;
 draw_set_color(c_white);
-draw_roundrect(hMargin,470,room_width-hMargin,470+400,1)
+draw_roundrect(hMargin,setY,room_width-hMargin,setY+400,1)
 
 // Draw gamemode Setting
+SetText(font0,c_white,fa_left,fa_top);
+draw_text(hMargin+60,setY+50,'Gamemode: ');
 
 // Draw best of Setting
-SetText(font0,c_aqua,fa_right,fa_middle);
-draw_text(room_width/2-70,vsY-45,'First to:');
-
-
+draw_text(hMargin+60,setY+50,'First to: X');
 
 </string>
           </argument>

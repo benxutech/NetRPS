@@ -3,8 +3,8 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
-  <persistent>0</persistent>
+  <depth>-101</depth>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,19 +25,12 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>interval = 90;
-index = -1;
-host = instance_create(room_width/2,room_height/2+index*interval,obj_button);
-host.label = 'Host'; index++;
-join = instance_create(room_width/2,room_height/2+index*interval,obj_button);
-join.label = 'Join'; index++;
-quit = instance_create(room_width/2,room_height/2+index*interval,obj_button);
-quit.label = 'Quit';
+            <string>target = 0;  // room here
+timerLimit = 15;
+timer = timerLimit;
+color = c_black;
 
-
-
-sb_rot = 0;
-
+if (instance_number(obj_transition) &gt; 1) visible = 0;
 </string>
           </argument>
         </arguments>
@@ -60,37 +53,16 @@ sb_rot = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (host.trigger == 1) {
-    // Make server
-    global.server = instance_create(0,0,obj_server);
-    // Make client
-    global.client = instance_create(0,0,obj_client);
-    TransitionRoom(rm_lobby);
-    host.trigger = 0;
-}
-if (join.trigger == 1) {
-    // Make client
-    global.client = instance_create(0,0,obj_client);
-    TransitionRoom(rm_lobby);
-    join.trigger = 0;
-}
-if (quit.trigger == 1) {
-    // Quit game
-    game_end();
-    join.trigger = 0;
-}
+            <string>timer -= 1;
 
-
-// Sunburst
-sb_rot += 0.1;
-sb_rot = sb_rot mod 360;
-
+if (timer == 0) room_goto(target);
+if (timer &lt; -timerLimit) instance_destroy();
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -107,9 +79,10 @@ sb_rot = sb_rot mod 360;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_ext(spr_sunburst,0,room_width/2,room_height/2,1,1,sb_rot,c_white,1);
-draw_sprite(spr_title,0,0,0);
-
+            <string>draw_set_color(color);
+draw_set_alpha(1-abs(timer)*(1/timerLimit));
+draw_rectangle(0,0,room_width,room_height,0);
+draw_set_alpha(1);
 </string>
           </argument>
         </arguments>

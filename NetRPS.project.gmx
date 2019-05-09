@@ -28,6 +28,7 @@
       <script>scripts\SetText.gml</script>
     </scripts>
     <script>scripts\script4.gml</script>
+    <script>scripts\TransitionRoom.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\font0</font>
@@ -50,6 +51,7 @@
       <object>objects\obj_card</object>
     </objects>
     <object>objects\object7</object>
+    <object>objects\obj_transition</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_menu</room>
