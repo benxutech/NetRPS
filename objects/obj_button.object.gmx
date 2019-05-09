@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>-1</persistent>
+  <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,39 +25,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>clientSock = network_create_socket(network_socket_tcp);
-global.clientSock = clientSock;
-port = 6510;
-ip = '127.0.0.1';
-conn = network_connect(clientSock,ip,port);
-
-buff = buffer_create(256, buffer_grow, 1);
-
-SendMsg(clientSock, 'hi from client');
-alarm[0] = 60;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="1" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>network_destroy(clientSock);
+            <string>trigger = 0;
+clicked = 0;
+width = 200;
+height = 74;
+label = '';
 </string>
           </argument>
         </arguments>
@@ -80,14 +52,13 @@ alarm[0] = 60;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>SendPing(clientSock);
-alarm[0] = room_speed*5;
+            <string>trigger = 1;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="68">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -104,31 +75,63 @@ alarm[0] = room_speed*5;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// Get packet metadata
-var n_sock = ds_map_find_value(async_load, 'id');
-if (n_sock == clientSock) {
-    var n_type = ds_map_find_value(async_load, 'type');
-    var n_ip = ds_map_find_value(async_load, 'ip');
-    var n_port = ds_map_find_value(async_load, 'port');
-    
-    switch (n_type) {
-    case network_type_data:
-        var n_buff = ds_map_find_value(async_load, 'buffer');
-        var n_size = ds_map_find_value(async_load, 'size');
-        buffer_seek(n_buff, buffer_seek_start, 0);
-        packetType = buffer_read(n_buff, buffer_s16);
-        
-        // Read data depending on type
-        switch (packetType) {
-            case CMD_HANDSHAKE: 
-                str = buffer_read(n_buff, buffer_string);
-                show_debug_message(str);
-            break;
+            <string>if (visible) {
+    if (point_in_rectangle(mouse_x,mouse_y,x-width/2,y-height/2,x+width/2,y+height/2)) {
+        if (mouse_check_button_pressed(mb_left)) {
+            clicked = 1;
         }
-        
-    break;
+        if (mouse_check_button_released(mb_left)) {
+            if (clicked == 1) {
+                alarm[0] = 2;
+            }
+        }
+    }
+    if (mouse_check_button_released(mb_left)) {
+        clicked = 0;
     }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Backing
+draw_set_color(c_white);
+draw_rectangle(x-width/2,y-height/2,x+width/2,y+height/2,0);
+
+// Outline
+draw_set_color(c_black);
+draw_rectangle(x-width/2,y-height/2,x+width/2,y+height/2,1);
+
+// Label
+SetText(font0,c_black,fa_center,fa_middle);
+draw_text(x,y,label);
+
+// Clicked
+if (clicked) {
+draw_set_color(c_black);
+draw_set_alpha(0.5);
+draw_rectangle(x-width/2,y-height/2,x+width/2,y+height/2,0);
+draw_set_alpha(1);
+}
+
 </string>
           </argument>
         </arguments>

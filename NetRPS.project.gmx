@@ -12,12 +12,50 @@
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <scripts name="network">
+      <scripts name="server">
+        <script>scripts\SendHandshake.gml</script>
+      </scripts>
+      <scripts name="client">
+        <script>scripts\SendMsg.gml</script>
+        <script>scripts\SendPing.gml</script>
+      </scripts>
+    </scripts>
+    <scripts name="ui">
+      <script>scripts\SetText.gml</script>
+    </scripts>
+  </scripts>
+  <fonts name="fonts">
+    <font>fonts\font0</font>
+    <font>fonts\fontHeading1</font>
+    <font>fonts\fontHeading2</font>
+  </fonts>
   <objects name="objects">
-    <object>objects\obj_server</object>
-    <object>objects\obj_client</object>
-    <object>objects\obj_menu</object>
-    <object>objects\obj_lobby</object>
+    <objects name="network">
+      <object>objects\obj_server</object>
+      <object>objects\obj_client</object>
+    </objects>
+    <objects name="menus">
+      <object>objects\obj_menu</object>
+      <object>objects\obj_lobby</object>
+      <object>objects\obj_button</object>
+    </objects>
+    <objects name="game">
+      <object>objects\obj_game</object>
+      <object>objects\obj_card</object>
+    </objects>
+    <object>objects\object7</object>
   </objects>
+  <rooms name="rooms">
+    <room>rooms\rm_menu</room>
+    <room>rooms\rm_lobby</room>
+    <room>rooms\rm_game</room>
+  </rooms>
+  <constants number="2">
+    <constant name="CMD_PING">0</constant>
+    <constant name="CMD_HANDSHAKE">1</constant>
+  </constants>
   <help>
     <rtf>help.rtf</rtf>
   </help>
