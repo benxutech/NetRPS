@@ -25,12 +25,18 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>back = instance_create(200,room_height-100,obj_button);
-back.label = 'Back';
+            <string>back = instance_create(200,room_height-120,obj_button);
+back.label = 'Cancel';
 
-ready = instance_create(room_width-200,room_height-100,obj_button);
+ready = instance_create(room_width-200,room_height-120,obj_button);
 ready.label = 'Ready';
-ready.height = 100;
+ready.height = 120;
+
+playerName[0] = 'Waiting on Join';
+playerName[1] = 'Waiting on Join';
+
+
+
 </string>
           </argument>
         </arguments>
@@ -56,12 +62,25 @@ ready.height = 100;
             <string>if (back.trigger) {
     if (instance_exists(global.server)) instance_destroy(global.server);
     if (instance_exists(global.client)) instance_destroy(global.client);
+    if (instance_exists(obj_player)) instance_destroy(obj_player);
     TransitionRoom(rm_menu);
     back.trigger = 0;
 }
 if (ready.trigger) {
     TransitionRoom(rm_game);
 }
+
+if (instance_exists(obj_player)) {/*
+    show_debug_message(ds_list_size(global.client.players));
+    for (var i=0; i&lt;ds_list_size(global.client.players); i++) {
+        if (i == 0) playerName[0] = global.client.players[|0].name;
+        if (i == 1) playerName[1] = global.client.players[|1].name;
+    }*/
+    playerName[0] = obj_player.name;
+}
+
+
+
 </string>
           </argument>
         </arguments>
@@ -90,32 +109,46 @@ SetText(fontHeading1,c_white,fa_center,fa_top);
 draw_text(room_width/2,15,'Lobby');
 
 // Draw VS
-var vsY = 300;
+var vsY = 275;
 SetText(fontHeading1,c_ltgray,fa_center,fa_middle);
 draw_text(room_width/2,vsY,'VS');
 
 // Draw player names
+var vsGap = 160;
 SetText(fontHeading2,c_white,fa_right,fa_middle);
-draw_text(room_width/2-90,vsY,'PLAYER NAME HERE');
+draw_text(room_width/2-vsGap, vsY, playerName[0]);
 draw_set_halign(fa_left);
-draw_text(room_width/2+90,vsY,'PLAYER NAME HERE');
+draw_text(room_width/2+vsGap, vsY, playerName[1]);
 
-// Draw host
-SetText(font0,c_aqua,fa_right,fa_middle);
-draw_text(room_width/2-70,vsY-45,'Host');
+// Draw host, challenger subtitles
+SetText(font0,c_ltgray,fa_right,fa_middle);
+draw_text(room_width/2-vsGap,vsY-45,'Host');
+draw_set_halign(fa_left);
+draw_text(room_width/2+vsGap,vsY-45,'Challenger');
 
 // Draw settings box
-hMargin = 450;
-setY = 470;
+setX = 400;
+setY = 450;
+setW = 500;
+setH = 400;
 draw_set_color(c_white);
-draw_roundrect(hMargin,setY,room_width-hMargin,setY+400,1)
+draw_roundrect(setX,setY,setX+setW,setY+setH,1)
 
-// Draw gamemode Setting
+// Draw settings
+var index = 1;
 SetText(font0,c_white,fa_left,fa_top);
-draw_text(hMargin+60,setY+50,'Gamemode: ');
+draw_text(setX+60,setY+index*50,'Gamemode: '); index++;
+draw_text(setX+60,setY+index*50,'First to: X'); index++;
+draw_text(setX+60,setY+index*50,'Test setting: '); index++;
 
-// Draw best of Setting
-draw_text(hMargin+60,setY+50,'First to: X');
+// Draw chat box
+chatX = 1010;
+chatY = 450;
+chatW = 500;
+chatH = 350;
+draw_set_color(c_white);
+draw_roundrect(chatX,chatY,chatX+chatW,chatY+chatH,1)
+draw_roundrect(chatX,chatY+chatH+6,chatX+chatW,chatY+chatH+50,1)
 
 </string>
           </argument>

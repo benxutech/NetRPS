@@ -4,13 +4,16 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\snd_xelestial</sound>
+  </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_RPS</sprite>
     <sprite>sprites\spr_RPS2</sprite>
     <sprite>sprites\spr_flipped</sprite>
     <sprite>sprites\spr_title</sprite>
     <sprite>sprites\spr_sunburst</sprite>
+    <sprite>sprites\spr_xelestial</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -18,9 +21,12 @@
     <scripts name="network">
       <scripts name="server">
         <script>scripts\SendHandshake.gml</script>
+        <script>scripts\SendLobbyInfo.gml</script>
+        <script>scripts\SendPlayers.gml</script>
       </scripts>
       <scripts name="client">
         <script>scripts\SendMsg.gml</script>
+        <script>scripts\SendRoom.gml</script>
         <script>scripts\SendPing.gml</script>
       </scripts>
     </scripts>
@@ -37,30 +43,37 @@
     <font>fonts\fontHeading2</font>
   </fonts>
   <objects name="objects">
-    <objects name="network">
+    <objects name="server">
       <object>objects\obj_server</object>
+      <object>objects\obj_serverPlayer</object>
+      <object>objects\obj_serverGame</object>
+    </objects>
+    <objects name="client">
+      <objects name="menus">
+        <object>objects\obj_menu</object>
+        <object>objects\obj_player</object>
+        <object>objects\obj_lobby</object>
+        <object>objects\obj_button</object>
+        <object>objects\obj_transition</object>
+        <object>objects\obj_circleIn</object>
+      </objects>
       <object>objects\obj_client</object>
-    </objects>
-    <objects name="menus">
-      <object>objects\obj_menu</object>
-      <object>objects\obj_lobby</object>
-      <object>objects\obj_button</object>
-    </objects>
-    <objects name="game">
       <object>objects\obj_game</object>
       <object>objects\obj_card</object>
     </objects>
-    <object>objects\object7</object>
-    <object>objects\obj_transition</object>
+    <object>objects\obj_logoSplash</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\rm_splash</room>
     <room>rooms\rm_menu</room>
     <room>rooms\rm_lobby</room>
     <room>rooms\rm_game</room>
   </rooms>
-  <constants number="2">
+  <constants number="4">
     <constant name="CMD_PING">0</constant>
     <constant name="CMD_HANDSHAKE">1</constant>
+    <constant name="CMD_PLAYERS">2</constant>
+    <constant name="CMD_ROOM">3</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

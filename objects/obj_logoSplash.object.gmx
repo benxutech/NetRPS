@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>-1</persistent>
+  <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,33 +25,29 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>port = 6510;
-server = network_create_server(network_socket_tcp, port, 2);
-if (server &lt; 0) {
-    show_message('Error - Could not start server. Is another server already running?');
-    instance_destroy();
-    game_restart();
-}
+            <string>// Fade in
+// Scene: Logo
+// Stars
 
-// Client data
-sockets = ds_list_create();  // Stores connected sockets
-players = ds_map_create();  // Stores socket:instances
-
-// Lobby settings
-gameMode = 0;
-scoreLimit = 5;
-
-// Game instance
-//game = instance_create(0,0,obj_serverGame);
+// Fade out white into next room
 
 
+
+timer = 0;
+logoFadeIn = room_speed*1.5;
+showTime = room_speed*2
+fadeOut = room_speed*2;
+nextRoom = room_speed*8;
+
+
+audio_play_sound(snd_xelestial,0,0);
 
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="1" enumb="0">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -68,13 +64,24 @@ scoreLimit = 5;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>network_destroy(server);
+            <string>timer += 1;
+
+if (mouse_check_button_pressed(mb_any) || keyboard_check_pressed(vk_anykey)) {
+    timer = nextRoom;
+}
+
+if (timer &gt;= nextRoom) {
+    room_goto_next();
+    timer = 0;
+}
+
+
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="68">
+    <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -91,57 +98,14 @@ scoreLimit = 5;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// Receiving network event
-var n_sock = ds_map_find_value(async_load, 'id');
-if (n_sock == server) {
-    var n_type = ds_map_find_value(async_load, 'type');
-    var n_ip = ds_map_find_value(async_load, 'ip');
-    var n_port = ds_map_find_value(async_load, 'port');    
+            <string>draw_set_alpha(timer/logoFadeIn);
+draw_sprite(spr_xelestial,0,floor(room_width/2),floor(room_height/2));
 
-    if (n_type == network_type_connect) {
-        // On connect
-        show_debug_message('a connection');
-        // Add socket to list
-        ds_list_add(sockets, n_sock);
-        // Create instance for socket
-        var player = instance_create(0,0,obj_serverPlayer); 
-        // Add instance to map
-        ds_map_add(players, n_sock, player);
-    }
-    else {
-        // On disconnect
-        show_debug_message('a disconnect');
-        // Delete relevant instance, map instance, and list socket
-        var inst = ds_map_find_value(players,n_sock);
-        with(inst) { instance_destroy(); }
-        ds_map_delete(players, n_sock);
-        var index = ds_list_find_index(sockets, n_sock);
-        ds_list_delete(sockets, index);
-    }
-}
-else if (n_sock == global.clientSock) {
-    // Ignore if is own client
-}
-else {
-    var n_buff = ds_map_find_value(async_load, 'buffer');
-    var n_size = ds_map_find_value(async_load, 'size');
-    buffer_seek(n_buff, buffer_seek_start, 0);
-    packetType = buffer_read(n_buff, buffer_s16);
-    
-    // Read data depending on type
-    switch (packetType) {
-        case CMD_PING:
-            show_debug_message('ping received');
-        break;
-        case CMD_HANDSHAKE: 
-            str = buffer_read(n_buff, buffer_string);
-            show_debug_message('Server: '+str);
-            SendHandshake(n_sock, 'Roger that');
-            SendPlayers(n_sock, sockets, players);
-        break;
-    }
-}
+draw_set_alpha((timer-logoFadeIn-showTime)/fadeOut);
+draw_set_color(c_white);
+draw_rectangle(0,0,room_width,room_height,0);
 
+draw_set_alpha(1);
 </string>
           </argument>
         </arguments>

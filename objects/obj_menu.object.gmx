@@ -107,7 +107,7 @@ sb_rot = sb_rot mod 360;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_ext(spr_sunburst,0,room_width/2,room_height/2,1,1,sb_rot,c_white,1);
+            <string>draw_sprite_ext(spr_sunburst,0,room_width/2,room_height/2,2,2,sb_rot,c_white,1);
 draw_sprite(spr_title,0,0,0);
 
 </string>

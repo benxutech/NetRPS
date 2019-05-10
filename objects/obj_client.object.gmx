@@ -31,7 +31,7 @@ port = 6510;
 ip = '127.0.0.1';
 conn = network_connect(clientSock,ip,port);
 
-buff = buffer_create(256, buffer_grow, 1);
+players = ds_list_create();
 
 SendMsg(clientSock, 'hi from client');
 alarm[0] = 60;
@@ -122,7 +122,35 @@ if (n_sock == clientSock) {
         switch (packetType) {
             case CMD_HANDSHAKE: 
                 str = buffer_read(n_buff, buffer_string);
-                show_debug_message(str);
+                show_debug_message('Client: '+str);
+            break;
+            case CMD_PLAYERS: 
+                var amt = buffer_read(n_buff, buffer_s16);
+                for (var i=0; i&lt;amt; i++) {
+                    var playerID = buffer_read(n_buff, buffer_s16);
+                    var name = buffer_read(n_buff, buffer_string);
+                    var playerScore = buffer_read(n_buff, buffer_s16);
+                    a = 0;
+                    
+                    // Check if our list has this instance already. If not, then make a new one
+                    var exists = 0;
+                    for (var o=0; o&lt;ds_list_size(players); o++) {
+                        if (players[|o].sockID == playerID) {
+                            exists = 1;
+                            show_debug_message('this one exists')
+                            a = players[|o];
+                        }
+                    }
+                    if (exists == 0) {
+                        show_debug_message('doesnt exist yet')
+                        a = instance_create(0,0,obj_player);
+                        a.sockID = playerID;
+                        ds_list_add(players, a);
+                    }
+                    // Apply new updates
+                    a.name = name;
+                    a.currentScore = playerScore;
+                }
             break;
         }
         
