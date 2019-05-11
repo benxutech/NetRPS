@@ -37,7 +37,8 @@ playerName[0] = defaultText;
 playerName[1] = defaultText;
 
 
-
+readyTrigger = 0;
+readiness = 0;
 </string>
           </argument>
         </arguments>
@@ -69,15 +70,25 @@ playerName[1] = defaultText;
 }
 
 if (ready.trigger) {
-    TransitionRoom(rm_game);
+    // toggle readiness
+    readiness += 1;
+    readiness = readiness mod 2;
+    
+    // button color
+    /*if (readiness == 0) ready.image_blend = c_gray;
+    else ready.image_blend = c_white;*/
+    
+    readyTrigger = 1;
+    ready.trigger = 0;
 }
 
 if (instance_exists(obj_player)) {
     for (var i=0; i&lt;ds_list_size(global.client.players); i++) {
-        if (i == 0) playerName[0] = global.client.players[|0].name;
-        else playerName[0] = defaultText;
-        if (i == 1) playerName[1] = global.client.players[|1].name;
-        else playerName[1] = defaultText;
+        var p = global.client.players[|i];
+        var r = '';
+        if (p.ready) r = ' (READY)';
+        playerName[i] = defaultText;
+        if (i == 0 || i == 1) playerName[i] = p.name + r;
     }
     //playerName[0] = obj_player.name;
 }

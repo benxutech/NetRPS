@@ -78,29 +78,6 @@ updateTimer = updateTimerInterval;
         </arguments>
       </action>
     </event>
-    <event eventtype="2" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>//SendPlayers(sockets, players);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -193,9 +170,11 @@ else {
             show_debug_message('Server: '+str);
             SendHandshake(n_id, 'Roger that');
             UpdateAllPlayers();
-            for (var i=0; i&lt;ds_list_size(sockets); i++) {
-                show_debug_message(sockets[|i]);
-            }
+        break;
+        case CMD_READY:
+            var a = ds_map_find_value(players, n_id);
+            a.ready = buffer_read(n_buff, buffer_s8);
+            UpdateAllPlayers();
         break;
     }
 }

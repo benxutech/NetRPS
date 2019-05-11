@@ -30,6 +30,7 @@ clicked = 0;
 width = 300;
 height = 100;
 label = '';
+disabled = 0;
 </string>
           </argument>
         </arguments>
@@ -75,7 +76,7 @@ label = '';
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (visible) {
+            <string>if (visible &amp;&amp; !disabled) {
     if (point_in_rectangle(mouse_x,mouse_y,x-width/2,y-height/2,x+width/2,y+height/2)) {
         if (mouse_check_button_pressed(mb_left)) {
             clicked = 1;
@@ -90,6 +91,7 @@ label = '';
         clicked = 0;
     }
 }
+
 </string>
           </argument>
         </arguments>
@@ -116,6 +118,7 @@ label = '';
 draw_set_color(c_gray);
 draw_roundrect(x-width/2,y-height/2+3,x+width/2+3,y+height/2+6,0);
 draw_set_color(c_white);
+if (disabled) draw_set_color(c_ltgray);
 draw_roundrect(x-width/2,y-height/2,x+width/2,y+height/2,0);
 
 /* use double backing
@@ -126,6 +129,7 @@ draw_roundrect(x-width/2,y-height/2,x+width/2,y+height/2,1);
 
 // Label
 SetText(font0,c_black,fa_center,fa_middle);
+if (disabled) draw_set_color(c_gray);
 draw_text(x,y,label);
 
 // Clicked

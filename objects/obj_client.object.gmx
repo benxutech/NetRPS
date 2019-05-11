@@ -87,6 +87,36 @@ alarm[0] = room_speed*5;
         </arguments>
       </action>
     </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (instance_exists(obj_lobby)) {
+    if (obj_lobby.readyTrigger != 0) {
+        // Send ready status to server
+        var readiness = obj_lobby.readiness;
+        SendReady(clientSock, readiness);
+        obj_lobby.readyTrigger = 0;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="68">
       <action>
         <libid>1</libid>
@@ -130,6 +160,7 @@ if (n_sock == clientSock) {
                     var playerID = buffer_read(n_buff, buffer_s16);
                     var name = buffer_read(n_buff, buffer_string);
                     var playerScore = buffer_read(n_buff, buffer_s16);
+                    var ready = buffer_read(n_buff, buffer_s16);
                     a = 0;
                     
                     // Check if our list has this instance already. If not, then make a new one
@@ -150,6 +181,7 @@ if (n_sock == clientSock) {
                     // Apply new updates
                     a.name = name;
                     a.currentScore = playerScore;
+                    a.ready = ready;
                 }
             break;
         }

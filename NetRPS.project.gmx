@@ -12,8 +12,8 @@
     <sprite>sprites\spr_RPS2</sprite>
     <sprite>sprites\spr_flipped</sprite>
     <sprite>sprites\spr_title</sprite>
-    <sprite>sprites\spr_sunburst</sprite>
     <sprite>sprites\spr_xelestial</sprite>
+    <sprite>sprites\spr_sunburst</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -23,13 +23,13 @@
         <script>scripts\SendHandshake.gml</script>
         <script>scripts\SendLobbyInfo.gml</script>
         <script>scripts\UpdatePlayers.gml</script>
-        <script>scripts\SendPlayers.gml</script>
         <script>scripts\UpdateAllPlayers.gml</script>
       </scripts>
       <scripts name="client">
         <script>scripts\SendMsg.gml</script>
-        <script>scripts\SendRoom.gml</script>
         <script>scripts\SendPing.gml</script>
+        <script>scripts\SendReady.gml</script>
+        <script>scripts\SendRoom.gml</script>
       </scripts>
     </scripts>
     <scripts name="ui">
@@ -53,13 +53,13 @@
     <objects name="client">
       <objects name="menus">
         <object>objects\obj_menu</object>
-        <object>objects\obj_player</object>
         <object>objects\obj_lobby</object>
         <object>objects\obj_button</object>
         <object>objects\obj_transition</object>
         <object>objects\obj_circleIn</object>
       </objects>
       <object>objects\obj_client</object>
+      <object>objects\obj_player</object>
       <object>objects\obj_game</object>
       <object>objects\obj_card</object>
     </objects>
@@ -71,11 +71,12 @@
     <room>rooms\rm_lobby</room>
     <room>rooms\rm_game</room>
   </rooms>
-  <constants number="4">
+  <constants number="5">
     <constant name="CMD_PING">0</constant>
     <constant name="CMD_HANDSHAKE">1</constant>
     <constant name="CMD_PLAYERS">2</constant>
     <constant name="CMD_ROOM">3</constant>
+    <constant name="CMD_READY">4</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

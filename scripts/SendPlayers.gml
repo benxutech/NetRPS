@@ -17,6 +17,7 @@ for (var i=0; i<ds_list_size(list); i++) {
     buffer_write(buff, buffer_s16, list[|i]);   // SocketID
     buffer_write(buff, buffer_string, inst.name);  // Name
     buffer_write(buff, buffer_s16, inst.currentScore);  // Score
+    buffer_write(buff, buffer_s16, inst.ready);  // Ready
 }
 
 // Send

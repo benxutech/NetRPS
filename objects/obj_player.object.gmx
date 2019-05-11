@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>-1</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_serverPlayer</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -26,10 +26,9 @@
           <argument>
             <kind>1</kind>
             <string>/// Stores player data for client
-name = '';
-currentScore = 0;
+event_inherited();  // Inherit from parent
 
-
+name = 'Joe';
 </string>
           </argument>
         </arguments>
