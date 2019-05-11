@@ -38,6 +38,7 @@ sockets = ds_list_create();  // Stores connected sockets
 players = ds_map_create();  // Stores socket:instances
 
 // Lobby settings
+phase = 0;  // 0=lobby, 1=playing?
 gameMode = 0;
 scoreLimit = 5;
 
@@ -99,6 +100,20 @@ updateTimer = updateTimerInterval;
 if (updateTimer &lt;= 0) {
     UpdateAllPlayers();
     updateTimer = updateTimerInterval;
+}
+
+if (phase == 0) {
+    // If 2 players
+    if (ds_list_size(sockets) &gt;= 2) {
+        // If both are Ready
+        var p1 = ds_map_find_value(players, sockets[|0]);
+        var p2 = ds_map_find_value(players, sockets[|1]);
+        if (p1.ready == 1 &amp;&amp; p2.ready == 1) {
+            show_debug_message('both players ready');
+            phase = 1;
+            UpdateRoom(rm_game);
+        }
+    }
 }
 </string>
           </argument>

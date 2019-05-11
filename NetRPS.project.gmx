@@ -30,6 +30,7 @@
         <script>scripts\SendLobbyInfo.gml</script>
         <script>scripts\UpdatePlayers.gml</script>
         <script>scripts\UpdateAllPlayers.gml</script>
+        <script>scripts\UpdateRoom.gml</script>
       </scripts>
       <scripts name="client">
         <script>scripts\SendMsg.gml</script>
@@ -41,7 +42,6 @@
     <scripts name="ui">
       <script>scripts\SetText.gml</script>
     </scripts>
-    <script>scripts\script4.gml</script>
     <script>scripts\TransitionRoom.gml</script>
   </scripts>
   <fonts name="fonts">

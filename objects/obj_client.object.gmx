@@ -184,6 +184,12 @@ if (n_sock == clientSock) {
                     a.ready = ready;
                 }
             break;
+            case CMD_ROOM:
+                // If telling us to move to another room
+                            show_debug_message('C. received room change')
+                var roomTarget = buffer_read(n_buff, buffer_s16);
+                TransitionRoom(roomTarget);
+            break; 
         }
         
     break;
