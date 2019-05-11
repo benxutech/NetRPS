@@ -8,12 +8,18 @@
     <sound>sound\snd_xelestial</sound>
   </sounds>
   <sprites name="sprites">
-    <sprite>sprites\spr_RPS</sprite>
-    <sprite>sprites\spr_RPS2</sprite>
-    <sprite>sprites\spr_flipped</sprite>
-    <sprite>sprites\spr_title</sprite>
-    <sprite>sprites\spr_xelestial</sprite>
-    <sprite>sprites\spr_sunburst</sprite>
+    <sprites name="rps">
+      <sprite>sprites\spr_RPS</sprite>
+      <sprite>sprites\spr_rock</sprite>
+      <sprite>sprites\spr_paper</sprite>
+      <sprite>sprites\spr_scissors</sprite>
+      <sprite>sprites\spr_flipped</sprite>
+    </sprites>
+    <sprites name="ui">
+      <sprite>sprites\spr_xelestial</sprite>
+      <sprite>sprites\spr_title</sprite>
+      <sprite>sprites\spr_sunburst</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
