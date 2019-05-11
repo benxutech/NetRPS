@@ -22,7 +22,9 @@
       <scripts name="server">
         <script>scripts\SendHandshake.gml</script>
         <script>scripts\SendLobbyInfo.gml</script>
+        <script>scripts\UpdatePlayers.gml</script>
         <script>scripts\SendPlayers.gml</script>
+        <script>scripts\UpdateAllPlayers.gml</script>
       </scripts>
       <scripts name="client">
         <script>scripts\SendMsg.gml</script>

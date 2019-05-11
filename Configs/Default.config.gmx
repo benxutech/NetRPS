@@ -330,8 +330,8 @@
     <option_ios_minor_version>0</option_ios_minor_version>
     <option_ios_orient_landscape>-1</option_ios_orient_landscape>
     <option_ios_orient_landscape_right>-1</option_ios_orient_landscape_right>
-    <option_ios_orient_portrait>-1</option_ios_orient_portrait>
-    <option_ios_orient_portrait_upside_down>-1</option_ios_orient_portrait_upside_down>
+    <option_ios_orient_portrait>0</option_ios_orient_portrait>
+    <option_ios_orient_portrait_upside_down>0</option_ios_orient_portrait_upside_down>
     <option_ios_provisioning></option_ios_provisioning>
     <option_ios_push_enable>0</option_ios_push_enable>
     <option_ios_scale>-1</option_ios_scale>

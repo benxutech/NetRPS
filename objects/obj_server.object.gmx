@@ -41,6 +41,10 @@ players = ds_map_create();  // Stores socket:instances
 gameMode = 0;
 scoreLimit = 5;
 
+// Timers
+updateTimerInterval = 60;
+updateTimer = updateTimerInterval;
+
 // Game instance
 //game = instance_create(0,0,obj_serverGame);
 
@@ -74,6 +78,56 @@ scoreLimit = 5;
         </arguments>
       </action>
     </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//SendPlayers(sockets, players);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>updateTimer -= 1;
+if (updateTimer &lt;= 0) {
+    UpdateAllPlayers();
+    updateTimer = updateTimerInterval;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="68">
       <action>
         <libid>1</libid>
@@ -92,11 +146,12 @@ scoreLimit = 5;
           <argument>
             <kind>1</kind>
             <string>// Receiving network event
-var n_sock = ds_map_find_value(async_load, 'id');
-if (n_sock == server) {
+var n_id = ds_map_find_value(async_load, 'id');
+if (n_id == server) {
     var n_type = ds_map_find_value(async_load, 'type');
     var n_ip = ds_map_find_value(async_load, 'ip');
     var n_port = ds_map_find_value(async_load, 'port');    
+    var n_sock = ds_map_find_value(async_load, 'socket');
 
     if (n_type == network_type_connect) {
         // On connect
@@ -112,14 +167,14 @@ if (n_sock == server) {
         // On disconnect
         show_debug_message('a disconnect');
         // Delete relevant instance, map instance, and list socket
-        var inst = ds_map_find_value(players,n_sock);
-        with(inst) { instance_destroy(); }
+        var inst = ds_map_find_value(players, n_sock);
+        with (inst) { instance_destroy(); }
         ds_map_delete(players, n_sock);
         var index = ds_list_find_index(sockets, n_sock);
         ds_list_delete(sockets, index);
     }
 }
-else if (n_sock == global.clientSock) {
+else if (n_id == global.clientSock) {
     // Ignore if is own client
 }
 else {
@@ -136,8 +191,11 @@ else {
         case CMD_HANDSHAKE: 
             str = buffer_read(n_buff, buffer_string);
             show_debug_message('Server: '+str);
-            SendHandshake(n_sock, 'Roger that');
-            SendPlayers(n_sock, sockets, players);
+            SendHandshake(n_id, 'Roger that');
+            UpdateAllPlayers();
+            for (var i=0; i&lt;ds_list_size(sockets); i++) {
+                show_debug_message(sockets[|i]);
+            }
         break;
     }
 }

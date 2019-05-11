@@ -25,15 +25,16 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>back = instance_create(200,room_height-120,obj_button);
+            <string>back = instance_create(250,room_height-150,obj_button);
 back.label = 'Cancel';
 
-ready = instance_create(room_width-200,room_height-120,obj_button);
+ready = instance_create(room_width-250,room_height-150,obj_button);
 ready.label = 'Ready';
-ready.height = 120;
+ready.height = 140;
 
-playerName[0] = 'Waiting on Join';
-playerName[1] = 'Waiting on Join';
+defaultText = 'Waiting on Join';
+playerName[0] = defaultText;
+playerName[1] = defaultText;
 
 
 
@@ -66,17 +67,19 @@ playerName[1] = 'Waiting on Join';
     TransitionRoom(rm_menu);
     back.trigger = 0;
 }
+
 if (ready.trigger) {
     TransitionRoom(rm_game);
 }
 
-if (instance_exists(obj_player)) {/*
-    show_debug_message(ds_list_size(global.client.players));
+if (instance_exists(obj_player)) {
     for (var i=0; i&lt;ds_list_size(global.client.players); i++) {
         if (i == 0) playerName[0] = global.client.players[|0].name;
+        else playerName[0] = defaultText;
         if (i == 1) playerName[1] = global.client.players[|1].name;
-    }*/
-    playerName[0] = obj_player.name;
+        else playerName[1] = defaultText;
+    }
+    //playerName[0] = obj_player.name;
 }
 
 
@@ -109,9 +112,9 @@ SetText(fontHeading1,c_white,fa_center,fa_top);
 draw_text(room_width/2,15,'Lobby');
 
 // Draw VS
-var vsY = 275;
+var vsY = 245;
 SetText(fontHeading1,c_ltgray,fa_center,fa_middle);
-draw_text(room_width/2,vsY,'VS');
+draw_text(room_width/2,vsY-10,'VS');
 
 // Draw player names
 var vsGap = 160;
@@ -128,7 +131,7 @@ draw_text(room_width/2+vsGap,vsY-45,'Challenger');
 
 // Draw settings box
 setX = 400;
-setY = 450;
+setY = 390;
 setW = 500;
 setH = 400;
 draw_set_color(c_white);
@@ -143,12 +146,12 @@ draw_text(setX+60,setY+index*50,'Test setting: '); index++;
 
 // Draw chat box
 chatX = 1010;
-chatY = 450;
+chatY = setY;
 chatW = 500;
-chatH = 350;
+chatH = 320;
 draw_set_color(c_white);
 draw_roundrect(chatX,chatY,chatX+chatW,chatY+chatH,1)
-draw_roundrect(chatX,chatY+chatH+6,chatX+chatW,chatY+chatH+50,1)
+draw_roundrect(chatX,chatY+chatH+6,chatX+chatW,chatY+chatH+70,1)
 
 </string>
           </argument>

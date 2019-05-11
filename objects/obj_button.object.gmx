@@ -28,7 +28,7 @@
             <string>trigger = 0;
 clicked = 0;
 width = 300;
-height = 74;
+height = 100;
 label = '';
 </string>
           </argument>

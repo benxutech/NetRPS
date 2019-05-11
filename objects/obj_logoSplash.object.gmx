@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -34,10 +34,13 @@
 
 
 timer = 0;
-logoFadeIn = room_speed*1.5;
-showTime = room_speed*2
-fadeOut = room_speed*2;
-nextRoom = room_speed*8;
+timer2 = 0;
+logoFadeIn = room_speed*1.4;
+showTime = room_speed*1.8;
+fadeOut = room_speed*0.3;
+nextRoom = room_speed*3.8;
+fadeInAlpha = timer/logoFadeIn;
+fadeOutAlpha = (timer-logoFadeIn-showTime+timer2)/fadeOut;
 
 
 audio_play_sound(snd_xelestial,0,0);
@@ -66,13 +69,26 @@ audio_play_sound(snd_xelestial,0,0);
             <kind>1</kind>
             <string>timer += 1;
 
-if (mouse_check_button_pressed(mb_any) || keyboard_check_pressed(vk_anykey)) {
-    timer = nextRoom;
+if (timer &lt;= nextRoom) {
+    fadeInAlpha = timer/logoFadeIn;
+    fadeOutAlpha = (timer-logoFadeIn-showTime+timer2)/fadeOut;
+}
+if (timer &lt; logoFadeIn+showTime) {
+    if (mouse_check_button_pressed(mb_any) || keyboard_check_pressed(vk_anykey)) {
+        timer = logoFadeIn+showTime;
+    }
 }
 
-if (timer &gt;= nextRoom) {
+if (floor(timer) == nextRoom) {
     room_goto_next();
-    timer = 0;
+    audio_stop_all();
+    timer = nextRoom+1;
+}
+
+if (timer &gt; nextRoom) {
+    fadeOutAlpha = (fadeOut-timer2)/fadeOut;
+    timer2 += 1;
+    if (fadeOut-timer2 &lt; 0) instance_destroy();
 }
 
 
@@ -81,7 +97,7 @@ if (timer &gt;= nextRoom) {
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -98,10 +114,12 @@ if (timer &gt;= nextRoom) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_alpha(timer/logoFadeIn);
-draw_sprite(spr_xelestial,0,floor(room_width/2),floor(room_height/2));
+            <string>if (timer &lt;= nextRoom) {
+    draw_set_alpha(fadeInAlpha);
+    draw_sprite(spr_xelestial,0,floor(room_width/2),floor(room_height/2));
+}
 
-draw_set_alpha((timer-logoFadeIn-showTime)/fadeOut);
+draw_set_alpha(fadeOutAlpha);
 draw_set_color(c_white);
 draw_rectangle(0,0,room_width,room_height,0);
 

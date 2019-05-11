@@ -1,9 +1,9 @@
-// Arg0 = target. Arg1 = player-socket list. Arg2 = player instance map
+// Arg0 = player-socket list. Arg1 = player instance map
 // Send all relevant player data to client Lobby objects
-var list = argument1;
-var map = argument2;
+var list = argument0;
+var map = argument1;
 
-var buff = buffer_create(256, buffer_grow, 1);
+var buff = buffer_create(16384, buffer_fixed, 1);
 buffer_seek(buff, buffer_seek_start, 0);
 
 // Packet Type
@@ -19,8 +19,10 @@ for (var i=0; i<ds_list_size(list); i++) {
     buffer_write(buff, buffer_s16, inst.currentScore);  // Score
 }
 
-// Send
-network_send_packet(argument0, buff, buffer_tell(buff));
-show_debug_message(argument0)
+// Send to players
+for (var i=0; i<ds_list_size(list); i++) {
+    show_debug_message(network_send_packet(0, buff, buffer_tell(buff)));
+}
+
 // Clean-up
 buffer_delete(buff);
