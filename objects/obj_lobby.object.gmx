@@ -36,6 +36,7 @@ defaultText = 'Waiting on Join';
 playerName[0] = defaultText;
 playerName[1] = defaultText;
 
+chatString = '';
 
 readyTrigger = 0;
 readiness = 0;
@@ -105,8 +106,16 @@ readiness = 0;
         stringChats += chats[|i]+"#";
     }
     
+    // Current chatbox
+    chatString = string_copy(keyboard_string, 1, 25);
+    
+    if (keyboard_check_pressed(vk_backspace)) {
+        keyboard_string = '';
+    }
+    
     if (keyboard_check_pressed(vk_enter)) {
-        with (obj_client) {SendMsg(clientSock,'Testing message.')}
+        with (obj_client) {SendMsg(clientSock, obj_lobby.chatString)}
+        keyboard_string = '';
     }
 }
 
@@ -180,8 +189,13 @@ draw_roundrect(chatX,chatY,chatX+chatW,chatY+chatH,1)
 draw_roundrect(chatX,chatY+chatH+6,chatX+chatW,chatY+chatH+70,1)
 
 // Draw chat
+txtMargin = 15;
+SetText(font0,c_white,fa_left,fa_bottom);
+draw_text(chatX+txtMargin, chatY+chatH, stringChats);
+
+// Typing text
 SetText(font0,c_white,fa_left,fa_top);
-draw_text(chatX, chatY, stringChats);
+draw_text(chatX+txtMargin, chatY+chatH+6, chatString);
 
 
 
