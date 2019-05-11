@@ -191,6 +191,10 @@ else {
             a.ready = buffer_read(n_buff, buffer_s8);
             UpdateAllPlayers();
         break;
+        case CMD_MSG:
+            var msg = buffer_read(n_buff, buffer_string);
+            SendBroadcast(msg);
+        break;
     }
 }
 

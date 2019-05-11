@@ -32,8 +32,9 @@ ip = '127.0.0.1';
 conn = network_connect(clientSock,ip,port);
 
 players = ds_list_create();
+chats = ds_list_create();
 
-SendMsg(clientSock, 'hi from client');
+SendHandshake(clientSock, 'hi from client');
 alarm[0] = 60;
 </string>
           </argument>
@@ -190,6 +191,11 @@ if (n_sock == clientSock) {
                 var roomTarget = buffer_read(n_buff, buffer_s16);
                 TransitionRoom(roomTarget);
             break; 
+            case CMD_BROADCAST:
+                var msg = buffer_read(n_buff, buffer_string);
+                ds_list_add(chats, msg);
+                show_debug_message(msg);
+            break;
         }
         
     break;

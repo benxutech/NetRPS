@@ -22,6 +22,6 @@ for (var i=0; i<ds_list_size(list); i++) {
 
 // Send
 network_send_packet(argument0, buff, buffer_tell(buff));
-show_debug_message(argument0)
+
 // Clean-up
 buffer_delete(buff);

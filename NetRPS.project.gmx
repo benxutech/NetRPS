@@ -31,6 +31,7 @@
         <script>scripts\UpdatePlayers.gml</script>
         <script>scripts\UpdateAllPlayers.gml</script>
         <script>scripts\UpdateRoom.gml</script>
+        <script>scripts\SendBroadcast.gml</script>
       </scripts>
       <scripts name="client">
         <script>scripts\SendMsg.gml</script>
@@ -77,12 +78,14 @@
     <room>rooms\rm_lobby</room>
     <room>rooms\rm_game</room>
   </rooms>
-  <constants number="5">
+  <constants number="7">
     <constant name="CMD_PING">0</constant>
     <constant name="CMD_HANDSHAKE">1</constant>
     <constant name="CMD_PLAYERS">2</constant>
     <constant name="CMD_ROOM">3</constant>
     <constant name="CMD_READY">4</constant>
+    <constant name="CMD_MSG">5</constant>
+    <constant name="CMD_BROADCAST">6</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>
