@@ -48,6 +48,7 @@ updateTimer = updateTimerInterval;
 
 // Game instance
 game = instance_create(0,0,obj_serverGame);
+game.owner = id;
 
 
 

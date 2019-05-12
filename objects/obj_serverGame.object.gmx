@@ -25,7 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// Settings (default)
+            <string>owner = 0;
+
+// Settings (default)
 gameMode = 0;
 scoreLimit = 5;
 currentRound = 0;
@@ -51,10 +53,14 @@ currentRound = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// If not lobby
-if (owner.phase == 1) {
-
+            <string>if (instance_exists(owner)) {
+    // If not lobby
+    if (owner.phase == 1) {
+    
+    }
+    
 }
+
 </string>
           </argument>
         </arguments>

@@ -189,7 +189,8 @@ if (n_sock == clientSock) {
                 // If telling us to move to another room
                             show_debug_message('C. received room change')
                 var roomTarget = buffer_read(n_buff, buffer_s16);
-                TransitionRoom(roomTarget);
+                var t = TransitionRoom(roomTarget);
+                t.timerLimit = 60;
             break; 
             case CMD_BROADCAST:
                 var msg = buffer_read(n_buff, buffer_string);

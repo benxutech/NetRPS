@@ -4,3 +4,5 @@ var fade = instance_create(0,0,obj_transition);
 fade.target = argument0;
 //fade.timerLimit = argument1;
 
+return fade;
+
