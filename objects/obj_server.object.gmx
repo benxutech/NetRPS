@@ -2,7 +2,7 @@
 <object>
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
-  <visible>-1</visible>
+  <visible>0</visible>
   <depth>0</depth>
   <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
@@ -47,7 +47,7 @@ updateTimerInterval = 60;
 updateTimer = updateTimerInterval;
 
 // Game instance
-//game = instance_create(0,0,obj_serverGame);
+game = instance_create(0,0,obj_serverGame);
 
 
 

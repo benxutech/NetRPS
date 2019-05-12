@@ -35,7 +35,7 @@
 
 timer = 0;
 timer2 = 0;
-logoFadeIn = room_speed*1.4;
+logoFadeIn = room_speed*1.25;
 showTime = room_speed*1.8;
 fadeOut = room_speed*0.3;
 nextRoom = room_speed*3.8;

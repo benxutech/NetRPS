@@ -62,62 +62,62 @@ readiness = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (instance_exists(obj_client)) {
+            <string>
+// Buttons
+if (back.trigger) {
+    if (instance_exists(global.server)) instance_destroy(global.server);
+    if (instance_exists(global.client)) instance_destroy(global.client);
+    if (instance_exists(obj_player)) instance_destroy(obj_player);
+    TransitionRoom(rm_menu);
+    back.trigger = 0;
+}
+
+if (ready.trigger) {
+    // toggle readiness
+    readiness += 1;
+    readiness = readiness mod 2;
     
-    // Buttons
-    if (back.trigger) {
-        if (instance_exists(global.server)) instance_destroy(global.server);
-        if (instance_exists(global.client)) instance_destroy(global.client);
-        if (instance_exists(obj_player)) instance_destroy(obj_player);
-        TransitionRoom(rm_menu);
-        back.trigger = 0;
+    // button color
+    /*if (readiness == 0) ready.image_blend = c_gray;
+    else ready.image_blend = c_white;*/
+    
+    readyTrigger = 1;
+    ready.trigger = 0;
+}
+
+// Ready
+if (instance_exists(obj_player)) {
+    for (var i=0; i&lt;ds_list_size(global.client.players); i++) {
+        var p = global.client.players[|i];
+        var r = '';
+        if (p.ready) r = ' (READY)';
+        playerName[i] = defaultText;
+        if (i == 0 || i == 1) playerName[i] = p.name + r;
     }
-    
-    if (ready.trigger) {
-        // toggle readiness
-        readiness += 1;
-        readiness = readiness mod 2;
-        
-        // button color
-        /*if (readiness == 0) ready.image_blend = c_gray;
-        else ready.image_blend = c_white;*/
-        
-        readyTrigger = 1;
-        ready.trigger = 0;
-    }
-    
-    // Ready
-    if (instance_exists(obj_player)) {
-        for (var i=0; i&lt;ds_list_size(global.client.players); i++) {
-            var p = global.client.players[|i];
-            var r = '';
-            if (p.ready) r = ' (READY)';
-            playerName[i] = defaultText;
-            if (i == 0 || i == 1) playerName[i] = p.name + r;
-        }
-        //playerName[0] = obj_player.name;
-    }
-    
-    // Messages
+    //playerName[0] = obj_player.name;
+}
+
+// Messages
+if (instance_exists(global.client)) {
     chats = global.client.chats;
     stringChats = '';
     //for (var i=ds_list_size(chats); i&gt;0; i--) {
     for (var i=0; i&lt;ds_list_size(chats); i++) {
         stringChats += chats[|i]+"#";
     }
-    
-    // Current chatbox
-    chatString = string_copy(keyboard_string, 1, 25);
-    
-    if (keyboard_check_pressed(vk_backspace)) {
-        keyboard_string = '';
-    }
-    
-    if (keyboard_check_pressed(vk_enter)) {
-        with (obj_client) {SendMsg(clientSock, obj_lobby.chatString)}
-        keyboard_string = '';
-    }
 }
+// Current chatbox
+chatString = string_copy(keyboard_string, 1, 25);
+
+if (keyboard_check_pressed(vk_backspace)) {
+    keyboard_string = '';
+}
+
+if (keyboard_check_pressed(vk_enter)) {
+    with (obj_client) {SendMsg(clientSock, obj_lobby.chatString)}
+    keyboard_string = '';
+}
+
 
 </string>
           </argument>
