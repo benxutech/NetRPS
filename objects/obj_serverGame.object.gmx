@@ -27,6 +27,10 @@
             <kind>1</kind>
             <string>owner = 0;
 
+// Players
+player1 = 0;
+player2 = 0;
+
 // Settings (default)
 gameMode = 0;
 scoreLimit = 5;

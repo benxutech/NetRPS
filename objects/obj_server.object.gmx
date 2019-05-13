@@ -112,6 +112,8 @@ if (phase == 0) {
         if (p1.ready == 1 &amp;&amp; p2.ready == 1) {
             show_debug_message('both players ready');
             phase = 1;
+            game.player1 = p1;
+            game.player2 = p2;
             UpdateRoom(rm_game);
         }
     }
@@ -153,6 +155,7 @@ if (n_id == server) {
         ds_list_add(sockets, n_sock);
         // Create instance for socket
         var player = instance_create(0,0,obj_serverPlayer); 
+        ds_list_add(player.cards,1,2,3);  // 1=r, 2=p, 3=s
         // Add instance to map
         ds_map_add(players, n_sock, player);
     }

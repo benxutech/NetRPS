@@ -12,12 +12,17 @@ buffer_write(buff, buffer_s16, CMD_PLAYERS);
 // Content
 buffer_write(buff, buffer_s16, ds_list_size(list));  // Current player count
 for (var i=0; i<ds_list_size(list); i++) {
-    // Player name
+    // Write player info
     var inst = ds_map_find_value(map, list[|i]);
     buffer_write(buff, buffer_s16, list[|i]);   // SocketID
     buffer_write(buff, buffer_string, inst.name);  // Name
     buffer_write(buff, buffer_s16, inst.currentScore);  // Score
     buffer_write(buff, buffer_s16, inst.ready);  // Ready
+    // Player cards
+    buffer_write(buff, buffer_s16, ds_list_size(inst.cards));  // Player card count
+    for (var o=0; o<ds_list_size(inst.cards); o++) {
+        buffer_write(buff, buffer_s8, inst.cards[|o]);  // Card
+    }
 }
 
 // Send

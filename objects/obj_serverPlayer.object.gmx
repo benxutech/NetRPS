@@ -29,6 +29,7 @@
 name = 'Gerry';
 currentScore = 0;
 ready = 0;
+cards = ds_list_create();
 
 
 

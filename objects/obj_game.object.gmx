@@ -2,9 +2,9 @@
 <object>
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
-  <visible>-1</visible>
+  <visible>0</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -27,6 +27,13 @@
             <kind>1</kind>
             <string>//btn = instance_create(room_width/2,room_height/2,obj_button);
 //btn.label = 'label'
+player1 = -1;
+player2 = -1;
+nameString1 = 'noname';
+nameString2 = 'noname';
+
+
+
 </string>
           </argument>
         </arguments>
@@ -53,6 +60,35 @@
     
     btn.trigger = 0;
 }*/
+
+if (instance_exists(player1)) nameString1 = player1.name;
+if (instance_exists(player2)) nameString2 = player2.name;
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="4">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (room == rm_game) {
+    visible = 1;
+}
 </string>
           </argument>
         </arguments>
@@ -87,10 +123,17 @@ draw_text(room_width/2,scY+85,'First to : X');
 
 // Draw player names
 SetText(fontHeading2,c_white,fa_left,fa_top);
-draw_text(45,scY,'PLAYER NAME HERE');
+draw_text(45,scY,nameString1);
 draw_set_halign(fa_right);
-draw_text(room_width-45,scY,'PLAYER2 NAME HERE');
+draw_text(room_width-45,scY,nameString2);
 
+// debug
+if (instance_exists(player1)) {
+    SetText(font0,c_white,fa_left,fa_top);
+    draw_text(400,400,player1.cards[|0]);
+    draw_text(400,450,player1.cards[|1]);
+    draw_text(400,500,player1.cards[|2]);
+}
 
 
 </string>

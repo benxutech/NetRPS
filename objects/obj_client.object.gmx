@@ -157,13 +157,20 @@ if (n_sock == clientSock) {
             break;
             case CMD_PLAYERS: 
                 var amt = buffer_read(n_buff, buffer_s16);
+                var cards = ds_list_create();
+                
                 for (var i=0; i&lt;amt; i++) {
                     var playerID = buffer_read(n_buff, buffer_s16);
                     var name = buffer_read(n_buff, buffer_string);
                     var playerScore = buffer_read(n_buff, buffer_s16);
                     var ready = buffer_read(n_buff, buffer_s16);
-                    a = 0;
+                    var cardCount = buffer_read(n_buff, buffer_s16);
+                    for (var o=0; o&lt;cardCount; o++) {
+                        // Read cards
+                        ds_list_add(cards,buffer_read(n_buff, buffer_s8));
+                    }
                     
+                    a = 0;
                     // Check if our list has this instance already. If not, then make a new one
                     var exists = 0;
                     for (var o=0; o&lt;ds_list_size(players); o++) {
@@ -179,11 +186,16 @@ if (n_sock == clientSock) {
                         a.sockID = playerID;
                         ds_list_add(players, a);
                     }
-                    // Apply new updates
+                    // Apply updates
                     a.name = name;
                     a.currentScore = playerScore;
                     a.ready = ready;
+                    
+                    // Apply card updates
+                    ds_list_clear(a.cards);
+                    ds_list_copy(a.cards,cards);
                 }
+                ds_list_destroy(cards);
             break;
             case CMD_ROOM:
                 // If telling us to move to another room
@@ -191,6 +203,12 @@ if (n_sock == clientSock) {
                 var roomTarget = buffer_read(n_buff, buffer_s16);
                 var t = TransitionRoom(roomTarget);
                 t.timerLimit = 60;
+                
+                if (roomTarget == rm_game) {
+                    game = instance_create(0,0,obj_game);
+                    game.player1 = players[|0];               // Unsafe
+                    game.player2 = players[|1];
+                }
             break; 
             case CMD_BROADCAST:
                 var msg = buffer_read(n_buff, buffer_string);
