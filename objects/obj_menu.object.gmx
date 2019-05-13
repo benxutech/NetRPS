@@ -112,8 +112,15 @@ sb_rot = sb_rot mod 360;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_ext(spr_sunburst,0,room_width/2,room_height/2,2,2,sb_rot,c_white,1);
+            <string>// Draw spin bg
+draw_sprite_ext(spr_sunburst,0,room_width/2,room_height/2,2,2,sb_rot,c_white,1);
+
+// Draw title
 draw_sprite(spr_title,0,0,0);
+
+// Draw bottom
+SetText(font0,c_red,fa_right,fa_bottom);
+draw_text(room_width,room_height,'Development Build')
 
 </string>
           </argument>
