@@ -7,10 +7,10 @@
   <coltolerance>0</coltolerance>
   <sepmasks>0</sepmasks>
   <bboxmode>0</bboxmode>
-  <bbox_left>292</bbox_left>
-  <bbox_right>997</bbox_right>
-  <bbox_top>256</bbox_top>
-  <bbox_bottom>355</bbox_bottom>
+  <bbox_left>117</bbox_left>
+  <bbox_right>1162</bbox_right>
+  <bbox_top>236</bbox_top>
+  <bbox_bottom>379</bbox_bottom>
   <HTile>0</HTile>
   <VTile>0</VTile>
   <TextureGroups>
@@ -21,5 +21,6 @@
   <height>616</height>
   <frames>
     <frame index="0">images\spr_xelestial_0.png</frame>
+    <frame index="1">images\spr_xelestial_1.png</frame>
   </frames>
 </sprite>
